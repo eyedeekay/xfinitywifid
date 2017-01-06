@@ -45,26 +45,39 @@ def fill_signup_form():
    # submit form!
    browser.find_by_value('submit').first.click(); sleep(8)
 
+def attempt_to_connect():
+    # change mac address
+    mac = change_mac()
+    # open browser and try to go to sign up site, if failure try to do some tweaks and try again or quit
+    browser = Browser('firefox')
+    try:
+       browser.visit('https://xfinity.nnu.com/xfinitywifi/?client-mac={}'.format(mac)); sleep(1)
+    except Exception as e:
+       print 'Error: ' + str(e)
+       makesure(mac)
+       sleep(8)
+       try:
+          browser.visit('https://xfinity.nnu.com/xfinitywifi/?client-mac={}'.format(mac)); sleep(1)
+       except Exception as e:
+          print 'Error: ' + str(e)
+          browser.quit()
+          makesure(mac)
+          exit()
+    # fill out sign up form
+    fill_signup_form()
+    # quit firefox when done
+    browser.quit()
+    print '<3'
+
 """ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~  MAIN: ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ """
-# change mac address
-mac = change_mac()
-# open browser and try to go to sign up site, if failure try to do some tweaks and try again or quit
-browser = Browser('firefox')
-try:
-   browser.visit('https://xfinity.nnu.com/xfinitywifi/?client-mac={}'.format(mac)); sleep(1)
-except Exception as e:
-   print 'Error: ' + str(e)
-   makesure(mac)
-   sleep(8)
-   try:
-      browser.visit('https://xfinity.nnu.com/xfinitywifi/?client-mac={}'.format(mac)); sleep(1)
-   except Exception as e:
-      print 'Error: ' + str(e)
-      browser.quit()
-      makesure(mac)
-      exit()
-# fill out sign up form
-fill_signup_form()
-# quit firefox when done
-browser.quit()
-print '<3'
+def main():
+    if system('ping -c 3 www.google.com') > 0:
+        print 'connection failed'
+        attempt_to_connect()
+    else:
+        print 'connection succeeded'
+        sleep(10)
+
+if __name__ == '__main__':
+    while True:
+        main()
