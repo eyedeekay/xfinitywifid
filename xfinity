@@ -1,18 +1,18 @@
 #!/bin/bash
 
-sudo pkill "kill_captive_network_assistant"
-sudo /Applications/xfinitywifi-autospoof/kill_captive_network_assistant.sh &
 
 while true
 do
-	ping -i 1 -c 2 'www.google.com' > /dev/null 2>&1
-	if [ $? -eq 0 ]; then
-		printf 'connection good :) '
-		pkill 'firefox'
-		sleep 3
-	else
-		printf 'connection fail :( '
-		sudo /Applications/xfinitywifi-autospoof/xfinity.py
-		sleep 1
-	fi
+    ping -i 1 -c 2 'www.google.com' > /dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        printf 'connection good :) '
+        pkill 'firefox'
+        sleep 3
+    else
+        sudo /Applications/xfinitywifi-autospoof/kill_captive_network_assistant.sh &
+        printf 'connection fail :( '
+        sudo /Applications/xfinitywifi-autospoof/xfinity.py
+        sleep 1
+        sudo pkill "kill_captive_network_assistant"
+    fi
 done
