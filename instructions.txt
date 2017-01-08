@@ -5,4 +5,4 @@ To Install:
 
 To Run:
     1. Go to /Applications/xfinitywifi-autospoof (in Finder or the shell).
-    2. Run the "xfinity" executable.
+    2. Run the "run" executable.
