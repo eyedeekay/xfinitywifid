@@ -13,6 +13,6 @@ do
         printf 'connection fail :( '
         /Applications/xfinitywifi-autospoof/xfinity.py
         sleep 1
-        pkill "kill_captive_network_assistant"
+        pkill -f "kill_captive_network_assistant"
     fi
 done

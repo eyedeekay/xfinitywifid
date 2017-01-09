@@ -39,13 +39,15 @@ try:
     browser.visit('https://xfinity.nnu.com/xfinitywifi/?client-mac={}'.format(mac))
 except Exception as e:
     print '\nFirst Error:    ', str(e)[:80], '...'
-    mac = randomize_mac()
+    restart_wifi()
+    set_mac(mac)
     restart_wifi()
     try:
         browser.visit('https://xfinity.nnu.com/xfinitywifi/?client-mac={}'.format(mac))
     except Exception as f:
         print '\nSecond Error:   ', str(f)[:80], '...'
         browser.quit()
+        restart_wifi()
         exit()
 fill_out_form()
 browser.quit()
