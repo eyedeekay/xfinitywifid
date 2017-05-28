@@ -9,6 +9,7 @@ setup-pip:
 	sudo easy_install pip
 
 setup-deps:
+	apt-get install python3-selenium
 	sudo -Hu xfin pip install splinter
 
 install:
