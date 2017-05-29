@@ -4,6 +4,11 @@ intro:
 setup-user:
 	addgroup --system xfin
 	adduser --system --home /usr/share/xfinitywifid --ingroup xfin --disabled-login xfin
+	sed -i 's|#includedir /etc/sudoers.d|includedir /etc/sudoers.d|' /etc/sudoers
+	echo "Cmnd_Alias MACSPOOF_CMD = /usr/share/xfinitywifid/xfinity-spoofmac" | tee -a /etc/sudoers.d/macspoof
+	echo "Defaults!MACSPOOF_CMD !requiretty" | tee -a /etc/sudoers.d/macspoof
+	echo "xfin ALL = (root) NOPASSWD: MACSPOOF_CMD" | tee -a /etc/sudoers.d/macspoof
+
 
 setup-pip:
 	sudo easy_install pip
@@ -13,11 +18,10 @@ setup-deps:
 	sudo -Hu xfin pip install splinter
 
 install:
-	sudo -u xfin cp run /usr/share/xfinitywifid
-	sudo -u xfin cp kill_captive_network_assistant.sh /usr/share/xfinitywifid
 	sudo -u xfin cp xfinity /usr/share/xfinitywifid
 	sudo -u xfin cp xfinity.py /usr/share/xfinitywifid
-	ln -f -s run /usr/local/bin
+	sudo cp xfinity-spoofmac /usr/share/xfinitywifid
+	ln -f -s /usr/share/xfinitywifid/xfinity /usr/local/bin
 
 
 install-osx:
