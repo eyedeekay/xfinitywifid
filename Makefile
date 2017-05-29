@@ -27,11 +27,11 @@ install:
 install-osx:
 	make remove-osx
 	mkdir -p /Applications/xfinitywifi-autospoof/
-	cp run /Applications/xfinitywifi-autospoof
-	cp kill_captive_network_assistant.sh /Applications/xfinitywifi-autospoof
-	cp xfinity /Applications/xfinitywifi-autospoof
+	cp old/run /Applications/xfinitywifi-autospoof
+	cp old/kill_captive_network_assistant.sh /Applications/xfinitywifi-autospoof
+	cp old/xfinity /Applications/xfinitywifi-autospoof
 	cp xfinity.py /Applications/xfinitywifi-autospoof
-	cp geckodriver /usr/local/bin
+	cp old/geckodriver /usr/local/bin
 
 remove:
 	rm -fr /usr/share/xfinitywifid

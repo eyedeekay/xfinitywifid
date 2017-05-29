@@ -9,10 +9,14 @@ do
         sleep 10
     else
         printf 'connection failed :( will attempt spoof'
-        /usr/share/xfinitywifid/xfinity-spoofmac
-        sleep 3
-        python3 /usr/share/xfinitywifid/xfinity.py
-        sleep 3
+        if uname -r | grep -v darwin ; then
+                /usr/share/xfinitywifid/xfinity-spoofmac; sleep 1
+                python3 /usr/share/xfinitywifid/xfinity.py; sleep 3
+        else
+                /Applications/xfinitywifi-autospoof/kill_captive_network_assistant.sh &
+                /Applications/xfinitywifi-autospoof/xfinity.py; sleep 3
+                pkill -f 'kill_captive_network_assistant'
+        fi
         ping -i 1 -c 1 'www.google.com' > /dev/null 2>&1
         if [ $? -eq 0 ]; then
             printf 'connection fixed!! :)'
